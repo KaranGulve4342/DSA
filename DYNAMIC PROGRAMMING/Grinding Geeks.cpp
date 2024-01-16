@@ -51,3 +51,33 @@ int main()
     }
 }
 // } Driver Code Ends
+
+
+/*
+class Solution{
+private:
+    int solve(int idx, int total, vector<int> &cost, vector<vector<int> >&dp){
+        if(idx == dp.size()){
+            return 0;
+        }
+
+        if(dp[idx][total] != -1){
+            return dp[idx][total];
+        }
+
+        int skip = solve(idx + 1, total, cost, dp);
+
+        if(total >= cost[idx]){
+            int take = 1 + solve(idx + 1, total - cost[i] + ((9*cost[i])/10), cost, dp);
+        }
+
+        return dp[idx][total] = max(skip, take);
+    }
+public:
+    int max-courses(int n, int total, vector<int> &cost){
+        vector<vector<int> >dp(n, vector<int>(total+1, -1));
+        return solve(0, total, cost , dp);
+    }
+}
+
+*/
