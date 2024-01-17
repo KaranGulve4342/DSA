@@ -3,7 +3,7 @@
 /*
 class Solution{
 public:
-    bool iniqueOccurrences(vector<int>& arr){
+    bool uniqueOccurrences(vector<int>& arr){
         int n = arr.size();
         unordered_map<int, int> m;
         for(int i = 0;i < n;i++){
@@ -19,3 +19,22 @@ public:
     }
 }
 */
+
+
+class Solution {
+public:
+     bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int,int>umap;
+        unordered_set<int>uset;
+        for(auto num:arr){
+            umap[num]++;
+        }
+        for(auto i : umap)
+        {
+            int freq = i.second;
+            if(uset.find(freq) != uset.end()) return false;
+            else uset.insert(freq);
+        }
+    return true;
+    }
+};
