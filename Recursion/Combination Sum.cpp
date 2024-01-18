@@ -4,7 +4,9 @@ class Solution{
 private:
     void findCombination(int idx, int target, vector<int>& arr, vector<vector<int>> &ans, vector<int>&ds){
         if(idx == arr.size()){
-            ans.push_back(ds);
+            if(target == 0){
+                ans.push_back(ds);
+            }
             return;
         }
 
