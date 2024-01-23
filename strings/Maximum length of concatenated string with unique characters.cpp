@@ -1,39 +1,53 @@
 // LEETCODE 1239 POTD 23 JAN 2024
 
-class Solution {
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution{
 public:
-    void backTrack(vector<string>&arr, string current, int start, int &maxLength){
-        if(maxLength < current.length()){
-            maxLength = current.length();
+    bool hasDuplicate(string &s1, string &s2){
+        int arr[26] = {0};
+
+        // check also this : {"aa", "bb"}
+        for(char ch : s1){
+            if(arr[ch - 'a'] > 0){
+                return true;
+            }
+            arr[ch - 'a']++;
         }
 
-        for(int i = start;i < arr.size();i++){
-            if(!isValid(current, arr[i])){
-                continue;
-            }
-
-            backTrack(arr, current + arr[i], i+1, maxLength);
-        }
-    }
-    bool isValid(string &current, string &newString){
-        unordered_set<char> charSet;
-        for(char ch : newString){
-            if(charSet.count(ch) > 0){
-                return false;
-            }
-
-            charSet.insert(ch);
-
-            if(current.find(ch) != string::npos){
-                return false;
+        for(char ch : s2){
+            if(arr[ch - 'a'] > 0){
+                return true;
             }
         }
-        return true;
-    }
-    int maxLength(vector<string>& arr) {
-        int maxLength = 0;
 
-        backTrack(arr, "", 0, maxLength);
-        return maxLength;
+        return false;
+
     }
-};
+    int solve(int i, vector<string>& arr, string temp, int n){
+        if(i >= n) return temp.length();
+
+        int include = 0;
+        int exclude = 0;
+
+        if(hasDuplicate(arr[i], temp)){
+            // exclude only
+            exclude = solve(i+1, arr, temp, n);
+        }
+        else{
+            // include and exclude
+            exclude = solve(i+1, arr, temp, n);
+            include = solve(i+1, arr, temp + arr[i], n);
+        }
+
+        return max(include, exclude);
+    }
+    int maxLength(vector<string>& arr){
+        string temp = ""; // no concatenation till now
+        int n = arr.size();
+
+        int i = 0;
+        return solve(i, arr, temp, n);
+    }
+}
