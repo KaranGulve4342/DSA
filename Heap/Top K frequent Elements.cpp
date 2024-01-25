@@ -103,7 +103,7 @@ public:
             mp[ele]++;
         }
 
-        priority_queue<int, vector<pi>, greater<pi>> pq;
+        priority_queue<pi, vector<pi>, greater<pi>> pq;
         for(auto x : mp){
             int ele = x.first;
             int freq = x.second;
