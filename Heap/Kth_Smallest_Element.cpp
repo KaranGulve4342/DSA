@@ -40,3 +40,27 @@ int kthSmallest(int arr[], int l, int r, int k){
     return ans;
 }
 */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int arr[] = {10, -2, 3, 4, 5, 6, 1, 4, -9};
+
+    int k = 4;
+
+    int n = sizeof(arr)/sizeof(arr[0]);
+
+    priority_queue<int> pq;
+    for(int i = 0;i < n;i++){
+        pq.push(arr[i]);
+        if(pq.size() > k){
+            pq.pop();
+        }
+    }
+
+    cout<<pq.top();
+    
+    return 0;
+}
