@@ -1,4 +1,4 @@
-// LEETCODE 692
+// LEETCODE 347
 
 //{ Driver Code Starts
 #include <bits/stdc++.h>
@@ -7,7 +7,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-        bool comp(pair<int, int> p1, pair<int, int> p2) {
+    bool comp(pair<int, int> p1, pair<int, int> p2) {
         if (p1.second == p2.second) {
             return p1.first > p2.first;
         }
@@ -88,5 +88,41 @@ public:
         return ans;
     }
 
+};
+*/
+
+/*
+class Solution{
+public:
+    typedef pair<int, int> pi;
+
+    vector<int> topKFrequent(vector<int>& arr, int k){
+        unordered_map<int, int> mp;
+
+        for(int ele : arr){
+            mp[ele]++;
+        }
+
+        priority_queue<int, vector<pi>, greater<pi>> pq;
+        for(auto x : mp){
+            int ele = x.first;
+            int freq = x.second;
+
+            pair<int, int> p = {freq, ele};
+            pq.push(p);
+
+            if(pq.size() > k){
+                pq.pop();
+            }
+        }
+        vector<int> ans;
+        while(pq.size() > 0){
+            int ele = pq.top().second;
+            ans.push_back(ele);
+            pq.pop();
+        }
+
+        return ans;
+    }
 };
 */
