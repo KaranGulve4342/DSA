@@ -35,7 +35,12 @@ public:
             return (left.top() + right.top())/2.0;
         }
         else{
-            return right.top();
+            if(left.size() > right.size()){
+                return left.top();
+            }
+            else{
+                return right.top();
+            }
         }
     }
 }
