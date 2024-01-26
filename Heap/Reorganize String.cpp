@@ -39,6 +39,7 @@ public:
 class Solution{
 public:
     string reorganizeString(string s){
+
         unordered_map<char, int> mp;
         priority_queue<pair<int, char> >pq;
 
@@ -71,7 +72,7 @@ public:
 
         if(!pq.empty()){
             if(pq.top().first > 1) return "";
-            else if(pq.top().second == ans.back()) return "";
+            else if(ans.size() > 0 && pq.top().second == ans.back()) return "";
             else ans += pq.top().second;
         }
 
