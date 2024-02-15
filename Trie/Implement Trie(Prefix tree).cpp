@@ -3,76 +3,76 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class Node{
-public:
-    char data;
-    bool terminal;
-    unordered_map<char, Node*> children;
+struct Node{
+    Node* links[26];
+    bool flag = false;
 
-    Node(char data){
-        this->data = data;
-        this->terminal = false;
+    // checks if the reference trie is present or not
+    bool containKey(char ch){
+        return (links[ch - 'a'] != NULL);
     }
 
-    void makeTerminal(){
-        this->terminal = true;
+    // creating reference trie
+    void put(char ch, Node* node){
+        links[ch - 'a'] = node;
     }
 
-    bool isTerminal() {
-        return this->terminal == true;
+    // to get the next node for traversal
+    Node* get(char ch){
+        return links[ch - 'a'];
+    }
+
+    // setting flag to true at the end of the word
+    void setEnd(){
+        flag = true;
+    }
+
+    // checking if the word si completed or not
+    bool isEnd(){
+        return flag;
     }
 };
 
-class Trie {
-public:
+class Trie{
+private:
     Node* root;
-    Trie() {
-        root = new Node('\0');
+
+public:
+    Trie(){
+        root = new Node();
     }
 
     void insert(string word){
-        Node* curr = root;
-        for(int i= 0;i < word.size();i++){
-            char ch = word[i];
-
-            if(curr = curr->children.count(ch)){
-                curr = curr->children[ch];
+        Node* node = root;
+        for(int i = 0;i < word.size();i++){
+            if(!node->containKey(word[i])){
+                node->put(word[i], new Node());
             }
-            else{
-                Node* child = new Node(ch);
-                curr->children[ch] = child;
-                curr = child;
-            }
+            node = node->get(word[i]);
         }
-        curr->makeTerminal();
+        node->setEnd();
     }
 
     bool search(string word){
-        Node* curr = root;
+        Node *node = root;
         for(int i = 0;i < word.size();i++){
-            char ch = word[i];
-            if(curr->children.count(ch)){
-                curr = curr->children[ch];
-            }
-            else{
+            if(!node->containKey(word[i])){
                 return false;
             }
+            node - node->get(word[i]);
         }
-        return curr->isTerminal();
+        return node->isEnd();
     }
 
     bool startsWith(string prefix){
-        Node* curr = root;
+        Node* node = root;
         for(int i = 0;i < prefix.size();i++){
-            char ch = prefix[i];
-            if(curr->children.count(ch)){
-                curr = curr->children[ch];
-            }
-            else{
+            if(!node->containKey(prefix[i])){
                 return false;
             }
+            node = node->get(prefix[i]);
         }
         return true;
     }
-}
 
+}
