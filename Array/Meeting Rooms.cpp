@@ -14,7 +14,7 @@ bool canAttend(vector<vector<int>>& intervals) {
 }
 
 int main() {
-    vector<vector<int>> intervals = {{0, 3}, {5, 10}, {15, 20}};
+    vector<vector<int>> intervals = {{0,7}, {5, 10}, {15, 20}};
     cout << (canAttend(intervals) ? "true" : "false") << endl;
     return 0;
 }
