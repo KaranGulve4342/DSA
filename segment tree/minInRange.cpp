@@ -11,7 +11,7 @@ void buildTree(int arr[], int i, int lo, int hi){
     buildTree(arr, 2*n + 1, lo, mid);
     buildTree(arr, 2*n + 2, mid+1, hi);
 
-    v[i] = max(v[2*i + 1], v[2*i + 2]);
+    v[i] = min(v[2*i + 1], v[2*i + 2]);
 }
 int getMin(int i, int lo, int hi, int& l, int& r){
     if(l > hi || r < lo){
@@ -22,9 +22,9 @@ int getMin(int i, int lo, int hi, int& l, int& r){
     }
 
     int mid = lo + (hi - lo)/2;
-    int leftMax = getMin(2*i + 1, lo, mid, l, r);
-    int rightMax = getMin(2*i + 2, mid + 1, hi, l, r);
-    return min(leftMax, rightMax);
+    int leftMin = getMin(2*i + 1, lo, mid, l, r);
+    int rightMin = getMin(2*i + 2, mid + 1, hi, l, r);
+    return min(leftMin, rightMin);
 }
 
 int main()
