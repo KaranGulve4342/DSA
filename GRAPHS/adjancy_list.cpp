@@ -3,27 +3,30 @@
 #include<list>
 using namespace std;
 
-// template <typename T>
-
-class graph {
+// This class represents a graph using an adjacency list representation.
+class graph{
 public:
+    // The graph is represented using an unordered_map of lists.
+    // The key of the map is the vertex, and the value is a list of adjacent vertices.
     unordered_map<int, list<int> > adj;
 
+    // This function is used to add an edge to the graph.
+    // The edge is added from vertex 'u' to vertex 'v'.
+    // If the graph is undirected, an edge is added from 'v' to 'u' as well.
     void addEdge(int u, int v, bool direction){
-        // direction = 0 -> undirected
-        // direction = 1 -> directed graph
-
-        // create an edge from u to v
+        // Add 'v' to the list of vertices adjacent to 'u'.
         adj[u].push_back(v);
-        if(direction == 0){
+        if(direction == 0){ // If the graph is undirected,
+            // add 'u' to the list of vertices adjacent to 'v'.
             adj[v].push_back(u);
         }
     }
 
+    // This function is used to print the adjacency list representation of the graph.
     void printAdjList(){
         for(auto i : adj){
-            cout<<i.first<<"->";
-            for(auto j : i.second) {
+            cout<<i.first<<" -> ";
+            for(auto j : i.second){
                 cout<<j<<" , ";
             }
             cout<<endl;
@@ -31,7 +34,7 @@ public:
     }
 };
 
-int main() {
+int main(){
     int n;
     cout<<"Enter the number of nodes"<<endl;
     cin>>n;
@@ -46,52 +49,10 @@ int main() {
         int u, v;
         cin>>u>>v;
 
-        // creating an undirected graph
+        // adding an undirected edge between 'u' and 'v'.
         g.addEdge(u, v, 0);
     }
     g.printAdjList();
 
     return 0;
 }
-
-
-/*
-#include <bits/stdc++.h>
-using namespace std;
-
-vector<list<int> >graph;
-int v; // no. of vertices
-void add_edge(int src, int dest, bool bi_dir = true){
-    graph[src].push_back(dest);
-    if(bi_dir){
-        graph[dest].push_back(src);
-    }
-}
-void display() {
-    for(int i = 0;i < graph.size();i++){
-        cout<<i<<" -> ";
-        for(auto el : graph[i]){
-            cout<<el<<", ";
-        }
-        cout<<endl;
-    }
-}
-
-int main()
-{
-    cin>>v;
-    graph.resize(v, list<int> ());
-    int e;
-    cin>>e;
-    while(e--){
-        int s, d;
-        cin>>s>>d;
-        add_edge(s, d);
-    }
-    display();
-
-    return 0;
-    
-    return 0;
-}
-*/
