@@ -1,5 +1,34 @@
 // LEETCODE 3092
 
+class Solution{
+public:
+    vector<long long> mostFrequentIDs(vector<int>& nums, vector<int>& freq){
+        priority_queue<pair<long long>> pq;
+        unordered_map<long long, long long> mp;
+
+        vector<long long> ans;
+
+        for(int i = 0;i < nums.size();i++){
+            mp[nums[i]] += freq[i];
+            pq.push({mp[nums[i]]m nums[i]});
+            while(!pq.empty()){
+                pair<long long, long long> p = pq.top();
+                if(mp[p.second] != p.first){
+                    pq.pop();
+                }
+                else{
+                    break;
+                }
+            }
+            ans.push_back(pq.top().first);
+        }
+        return ans;
+    }
+}
+
+
+
+
 #include<bits/stdc++.h>
 using namespace std;
 
