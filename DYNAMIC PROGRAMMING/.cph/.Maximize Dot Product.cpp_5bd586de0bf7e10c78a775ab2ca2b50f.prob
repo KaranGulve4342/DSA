@@ -1,0 +1,1 @@
+{"name":"Local: Maximize Dot Product","url":"c:\\Users\\KARAN\\Desktop\\DSA\\DYNAMIC PROGRAMMING\\Maximize Dot Product.cpp","tests":[{"id":1712468953961,"input":"1\n3\n1 2 3\n1\n4","output":"12"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\KARAN\\Desktop\\DSA\\DYNAMIC PROGRAMMING\\Maximize Dot Product.cpp","group":"local","local":true}
