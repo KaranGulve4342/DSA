@@ -1,0 +1,1 @@
+{"name":"Local: subsets","url":"c:\\Users\\KARAN\\Desktop\\DSA\\BitManipulation\\BitMasking\\subsets.cpp","tests":[{"id":1713154024341,"input":"3\n2 4 5","output":"2\n4\n5\n2 4\n4 5\n2 4 5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\KARAN\\Desktop\\DSA\\BitManipulation\\BitMasking\\subsets.cpp","group":"local","local":true}
