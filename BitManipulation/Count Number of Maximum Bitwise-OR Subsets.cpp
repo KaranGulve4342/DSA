@@ -1,5 +1,8 @@
 // LEETCODE 2044
 
+#include<bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     void solve(int currIdx, vector<int>& nums, int &maxOR, int currOR, int &ans){
