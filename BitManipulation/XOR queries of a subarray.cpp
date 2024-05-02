@@ -1,5 +1,8 @@
 // LEETCODE 1310
 
+#include<bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
