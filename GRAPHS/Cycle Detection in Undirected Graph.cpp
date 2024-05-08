@@ -1,5 +1,8 @@
 // Coding Ninjas
 
+#include<bits/stdc++.h>
+using namespace std;
+
 // USING BFS
 /*
 #include<unordered_map>
@@ -67,7 +70,7 @@ bool isCyclicDFS(int node, int parent, unordered_map<int, bool> &visited, unorde
 
     for(auto neighbour : adj[node]){
         if(!visited[neighbour]){
-            bool cycleDetected = isCycleDFS(neighbour, node, visited, adj);
+            bool cycleDetected = isCyclicDFS(neighbour, node, visited, adj);
             if(cycleDetected){
                 return true;
             }
