@@ -1,58 +1,55 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-string solve(){
-    int N;
-    cin >> N; // Read the value of N first
-    vector<int> attA(N);
-    vector<int> defA(N);
-    vector<int> attB(N);
-    vector<int> defB(N);
-    
-    for(int i = 0;i < N;i++){
-        cin >> attA[i];
-    }
-    for(int i = 0;i < N;i++){
-        cin >> defA[i];
-    }
-    for(int i = 0;i < N;i++){
-        cin >> attB[i];
-    }
-    for(int i = 0;i < N;i++){
-        cin >> defB[i];
-    }
-    int sum1A = 0;
-    int sum2A = 0;
-    int sum1B = 0;
-    int sum2B = 0;
-    
-    for(int i = 0;i < N;i++){
-        sum1A += attA[i];
-    }
-    for(int i = 0;i < N;i++){
-        sum2A += defA[i];
-    }
-    for(int i = 0;i < N;i++){
-        sum1B += attB[i];
-    }
-    for(int i = 0;i < N;i++){
-        sum2B += defB[i];
+int solve(){
+    int m;
+    cin >> m;
+    vector<int> c(m);
+    for (int i = 0; i < m; ++i) {
+        cin >> c[i];
     }
 
-    if(sum1A > sum1B && sum2A > sum2B){
-        return "A";
+    stack<int> stacks;
+    stack<int> index;
+    long long cost = 0;
+
+    for (int i = 0; i < m; ++i) {
+        while (stacks.size() > 1 && stacks.top() > c[i]) {
+            int c1 = stacks.top();
+            stacks.pop();
+            if (c1 >= stacks.top()) {
+                index.pop();
+            } else {
+                stacks.push(c1);
+                break;
+            }
+        }
+        stacks.push(c[i]);
+        index.push(i);
     }
-    else if(sum1A < sum1B && sum2A < sum2B){
-        return "P";
+
+    int last = stacks.top();
+    stacks.pop();
+    int g = index.top();
+    index.pop();
+
+    while (!stacks.empty()) {
+        cost += max(last, stacks.top()) * (g - index.top());
+        last = stacks.top();
+        stacks.pop();
+        g = index.top();
+        index.pop();
     }
-    else return "DRAW";
+    return cost;
 }
 
 int main() {
     int T;
-    cin >> T; // Read the number of test cases
-    while(T--){
+    cin >> T;
+
+    while (T--) {
         cout<<solve()<<endl;
     }
+
     return 0;
 }
