@@ -76,20 +76,27 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 void solve()
 {
     int n;
-    cin>>n;
-    VI v;
-    for(int i=0; i<n; ++i)
-    {
-        int x;
-        cin>>x;
-        if(i && v.back()>x)
-            v.pb(1);
-        v.pb(x);
+    cin >> n;
+
+    VI a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+    VI ans;
+    ans.pb(a[0]);
+
+    for(int i = 1;i < n;i++){
+        if(a[i-1] > a[i]){
+            ans.pb(a[i]);
+            ans.pb(a[i]);
+        }
+        else{
+            ans.pb(a[i]);
+        }
     }
-    cout<<v.size()<<endl;
-    for(auto x:v)
-        cout<<x<<" ";
-    cout<<endl;
+
+    cout << sz(ans) << endl;
+    for(auto x: ans){
+        cout << x << " ";
+    }
 }
 
 int32_t main()
