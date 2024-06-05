@@ -37,3 +37,38 @@ public:
     }
 };
 */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    long long calculateTotalHours(vector<int> &v, long long hourly) {
+        long long totalH = 0;
+        long long n = v.size();
+        //find total hours:
+        for (int i = 0; i < n; i++) {
+            totalH += ceil((double)(v[i]) / (double)(hourly));
+        }
+        return totalH;
+    }
+
+    int minEatingSpeed(vector<int> v, int h) {
+        long long lo = 1;
+        long long hi = *max_element(v.begin(), v.end());
+
+        //apply binary search:
+        while (lo <= hi) {
+            long long mid = lo + (hi - lo)/2;
+            long long totalH = calculateTotalHours(v, mid);
+            if (totalH <= h) {
+                hi = mid - 1;
+            }
+            else {
+                lo = mid + 1;
+            }
+        }
+        return (int)lo;
+    }
+};
+
