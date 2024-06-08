@@ -12,6 +12,7 @@ int solve(){
         cin >> b;
         if(abs(b - i) != 0){
             ans = __gcd(ans, abs(b-i));
+        
         }
     }
 
