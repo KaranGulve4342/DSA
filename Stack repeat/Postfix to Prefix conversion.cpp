@@ -11,13 +11,14 @@ using namespace std;
 
 class Solution {
   public:
-    string preToPost(string pre_exp) {
+    string postToPre(string post_exp) {
+        // Write your code here
         stack<string> st;
-        int n = pre_exp.size();
+        int n = post_exp.length();
         
-        for(int i = n-1;i >= 0;i--){
-            if(isalpha(pre_exp[i])){
-                st.push(string(1, pre_exp[i]));
+        for(int i = 0;i < n;i++){
+            if(isalpha(post_exp[i])){
+                st.push(string(1, post_exp[i]));
             }
             else{
                 string op1 = st.top();
@@ -25,7 +26,7 @@ class Solution {
                 string op2 = st.top();
                 st.pop();
                 
-                string temp = op1 + op2 + pre_exp[i];
+                string temp = post_exp[i] + op2 + op1;
                 st.push(temp);
             }
         }
@@ -35,7 +36,6 @@ class Solution {
 };
 
 //{ Driver Code Starts.
-
 int main() {
     int t = 1;
     cin >> t;
@@ -44,11 +44,13 @@ int main() {
 
     while (t--) {
         // Input
-        string prefix;
-        cin >> prefix;
+        string postfix;
+        cin >> postfix;
+
+        // char marker; cin >> marker;
 
         Solution obj;
-        cout << obj.preToPost(prefix) << endl;
+        cout << obj.postToPre(postfix) << endl;
 
         // cout << "~\n";
     }
