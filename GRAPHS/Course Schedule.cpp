@@ -104,3 +104,54 @@ int main() {
     return 0;
 }
 // } Driver Code Ends
+
+/*
+
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_map<int, list<int>> adjList;
+
+        for(auto x : prerequisites){
+            int u = x[0];
+            int v = x[1];
+            adjList[u].push_back(v);
+        }
+
+        vector<int> indegree(numCourses, 0);
+        queue<int> q;
+
+        for(int i = 0;i < numCourses;i++){
+            for(auto neighbour : adjList[i]){
+                indegree[neighbour]++;
+            }
+        }
+
+        for(int i = 0;i < numCourses;i++){
+            if(indegree[i] == 0){
+                q.push(i);
+            }
+        }
+
+        int count = 0;
+
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+
+            count++;
+
+            for(auto neighbour : adjList[node]){
+                indegree[neighbour]--;
+
+                if(indegree[neighbour] == 0){
+                    q.push(neighbour);
+                }
+            }
+        }
+
+        return count==numCourses;
+    }
+};
+
+*/
