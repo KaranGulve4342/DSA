@@ -1,70 +1,110 @@
+// USING MEMOIZATION
+//{ Driver Code Starts
+// Initial Template for C++
+
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int> >dp;
-int f(int i, int j, vector<int> &arr) {
-    if(i == j || i+1 == j) return 0;
-    if(dp[i][j] != -1) return dp[i][j];
-    int ans = INT_MAX;
-    for(int k = i+1;k < j;k++){
-        ans = min(ans, f(i, k, arr) + f(k , j, arr) + arr[i]*arr[k]*arr[j]);
-    }
-    return dp[i][j] = ans;
-}
+// } Driver Code Ends
+// User function Template for C++
 
-int main()
-{
-    int n;
-    cin>>n;
-    vector<int> v(n);
-    dp.clear();
-    dp.resize(1005, vector<int> (1000, -1));
-    for(int i = 0;i < n;i++){
-        cin>>v[i];
+class Solution{
+public:
+    int solve(int i, int j, int arr[], vector<vector<int>>& dp){
+        if(i == j){
+            return 0;
+        }
+        
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        
+        int mini = INT_MAX;
+        
+        for(int k = i;k < j;k++){
+            int steps = arr[i-1]*arr[k]*arr[j] + solve(i, k, arr, dp) + solve(k+1, j, arr, dp);
+            mini = min(mini, steps);
+        }
+        
+        return dp[i][j] = mini;
     }
-    cout<<f(0, n-1, v)<<"\n";
-    
+    int matrixMultiplication(int N, int arr[])
+    {
+        // code here
+        vector<vector<int>> dp(N+1, vector<int>(N+1, -1));
+        return solve(1, N-1, arr, dp);
+    }
+};
+
+//{ Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int N;
+        cin>>N;
+        int arr[N];
+        for(int i = 0;i < N;i++)
+            cin>>arr[i];
+        
+        Solution ob;
+        cout<<ob.matrixMultiplication(N, arr)<<endl;
+    }
     return 0;
 }
+// } Driver Code Ends
 
-// METHOD II
-// BOTTOM UP - APPROACH
-/*
-#include<bits/stdc++.h>
-using namesoace std;
+## USING TABULATION
 
-vector<vector<int> >dp;
+//{ Driver Code Starts
+// Initial Template for C++
 
-int f(int i, int j, vector<int> &arr){
-    if(i == j || i+1 == j) return 0;
-    if(dp[i][j] != -1) return dp[i][j];
-    int ans = INT_MAX;
-    for(int k = i + 1;k < j;k++){
-        ans = min(ans, f(i, k, arr) + f(k, j, arr) + arr[i]*arr[j]*arr[k]);
-    }
-    return dp[i][j] = ans;
-}
+#include <bits/stdc++.h>
+using namespace std;
 
-int main() {
-    int n;
-    cin>>n;
-    vector<int> v(n);
-    dp.clear();
-    dp.resize(1005, vector<int> (1000, 0));
-    for(int i = 0;i < n;i++){
-        cin>>v[i];
-    }
+// } Driver Code Ends
+// User function Template for C++
 
-    for(int len = 3;len <= n;len++){
-        for(int i = 0;i+len-1 < n;i++){
-            int j = i + len - 1;
-            dp[i][j] = INT_MAX;
-            for(int k = i+1;k < j;k++){
-                dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j] + v[i]*v[j]*v[k]);
+class Solution{
+public:
+    int matrixMultiplication(int N, int arr[])
+    {
+        // code here
+        vector<vector<int>> dp(N+1, vector<int>(N+1, 0));
+        
+        for(int i = N-1;i > 0;i--){
+            for(int j = i+1;j < N;j++){
+                int mini = INT_MAX;
+                
+                for(int k = i;k < j;k++){
+                    int steps = arr[i-1]*arr[k]*arr[j] + dp[i][k] + dp[k+1][j];
+                    mini = min(steps, mini);
+                }
+                
+                dp[i][j] = mini;
             }
         }
+        
+        return dp[1][N-1];
     }
-    cout<<f(0, n-1, v)<<"\n";
+};
+
+//{ Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int N;
+        cin>>N;
+        int arr[N];
+        for(int i = 0;i < N;i++)
+            cin>>arr[i];
+        
+        Solution ob;
+        cout<<ob.matrixMultiplication(N, arr)<<endl;
+    }
     return 0;
 }
-*/
+// } Driver Code Ends
