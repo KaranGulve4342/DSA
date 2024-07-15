@@ -3,76 +3,78 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct Node{
+struct Node {
     Node* links[26];
     bool flag = false;
 
-    // checks if the reference trie is present or not
-    bool containKey(char ch){
-        return (links[ch - 'a'] != NULL);
+    bool containsKey(char ch){
+        return links[ch - 'a'] != NULL;
     }
 
-    // creating reference trie
     void put(char ch, Node* node){
         links[ch - 'a'] = node;
     }
 
-    // to get the next node for traversal
     Node* get(char ch){
         return links[ch - 'a'];
     }
 
-    // setting flag to true at the end of the word
     void setEnd(){
         flag = true;
     }
 
-    // checking if the word si completed or not
     bool isEnd(){
         return flag;
     }
 };
-
-class Trie{
-private:
-    Node* root;
-
+class Trie {
 public:
-    Trie(){
+    Node* root;
+    Trie() {
         root = new Node();
     }
-
-    void insert(string word){
-        Node* node = root;
-        for(int i = 0;i < word.size();i++){
-            if(!node->containKey(word[i])){
-                node->put(word[i], new Node());
+    
+    void insert(string word) {
+        Node *curr = root;
+        for(int i = 0;i < word.length();i++){
+            if(curr->containsKey(word[i]) == NULL){
+                curr->put(word[i], new Node());
             }
-            node = node->get(word[i]);
+            curr = curr->get(word[i]);
         }
-        node->setEnd();
-    }
 
-    bool search(string word){
-        Node *node = root;
-        for(int i = 0;i < word.size();i++){
-            if(!node->containKey(word[i])){
+        curr->setEnd();
+    }
+    
+    bool search(string word) {
+        Node* curr = root;
+        for(int i = 0;i < word.length();i++){
+            if(curr->containsKey(word[i]) == NULL){
                 return false;
             }
-            node - node->get(word[i]);
+            curr = curr->get(word[i]);
         }
-        return node->isEnd();
-    }
 
-    bool startsWith(string prefix){
-        Node* node = root;
-        for(int i = 0;i < prefix.size();i++){
-            if(!node->containKey(prefix[i])){
+        return curr->isEnd();
+    }
+    
+    bool startsWith(string prefix) {
+        Node* curr = root;
+        for(int i = 0;i < prefix.length();i++){
+            if(curr->containsKey(prefix[i]) == NULL){
                 return false;
             }
-            node = node->get(prefix[i]);
+            curr = curr->get(prefix[i]);
         }
+
         return true;
     }
+};
 
-}
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
