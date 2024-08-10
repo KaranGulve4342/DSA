@@ -1,6 +1,6 @@
 // Coding Ninjas
 
-/*
+
 int solve(int n, int x, int y, int z){
     if(n == 0) return 0;
     if(n < 0) return INT_MIN;
@@ -53,7 +53,7 @@ int cutSegments(int n, int x, int y, int z){
 
     return solveTab(n, x, y, z);
 }
-*/
+
 
 /*
 // RECURSION
