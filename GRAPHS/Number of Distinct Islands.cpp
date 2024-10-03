@@ -1,5 +1,3 @@
-// GFG PRACTICE
-
 //{ Driver Code Starts
 // Initial Template for C++
 #include <bits/stdc++.h>
@@ -11,40 +9,46 @@ using namespace std;
 
 class Solution {
   public:
-    void dfs(int i, int j, vector<vector<int>>& grid, string&s, string direction){
-        if(i < 0 || j < 0 || i >= grid.size() || j >= grid[0].size()){
-            return;
+    void dfs(int row, int col, vector<vector<int>>& grid, vector<vector<bool>>& visited, vector<pair<int, int>>& vp, int row0, int col0){
+        visited[row][col] = true;
+        
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        vp.push_back({row - row0, col - col0});
+        
+        vector<pair<int, int>> dirs = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+        
+        for(int i = 0;i < 4;i++){
+            int newrow = row + dirs[i].first;
+            int newcol = col + dirs[i].second;
+            
+            
+            if(newrow >= 0 && newrow < n && newcol >= 0 && newcol < m && !visited[newrow][newcol] && grid[newrow][newcol] == 1){
+                dfs(newrow, newcol, grid, visited, vp, row0, col0);
+            }
         }
-        
-        if(grid[i][j] == 0 || grid[i][j] == 2){
-            return;
-        }
-        
-        grid[i][j] = 2;
-        
-        s += direction;
-        
-        dfs(i+1, j, grid,s, "r");
-        dfs(i, j+1, grid,s, "d");
-        dfs(i-1, j, grid,s, "u");
-        dfs(i, j-1, grid,s, "l");
-        
-        s += "b";
     }
     int countDistinctIslands(vector<vector<int>>& grid) {
+        // code here
+        int n = grid.size();
+        int m = grid[0].size();
         
-        unordered_set<string> ans;
-        for(int i = 0;i < grid.size();i++){
-            for(int j = 0;j < grid[0].size();j++){
-                if(grid[i][j] == 1){
-                    string t = "";
-                    dfs(i, j, grid, t, "o");
-                    ans.insert(t);
+        vector<vector<bool>> visited(n+1, vector<bool>(m+1, false));
+        
+        set<vector<pair<int, int>>> st;
+        
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < m;j++){
+                if(!visited[i][j] && grid[i][j] == 1){
+                    vector<pair<int, int>> vp;
+                    dfs(i, j, grid, visited, vp, i, j);
+                    st.insert(vp);
                 }
             }
         }
         
-        return ans.size();
+        return st.size();
     }
 };
 
